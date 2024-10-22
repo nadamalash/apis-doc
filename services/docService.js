@@ -6,12 +6,6 @@ exports.addDoc = async (docName, docContent) => {
   return await newDoc.save();
 };
 
-// Get doc content by docName
-exports.getDocContentByName = async (docName) => {
-  const doc = await DocModel.findOne({ docName }, { docContent: 1 });
-  return doc ? doc.docContent : null;
-};
-
 // Get doc content by _id
 exports.getDocContentById = async (id) => {
   const doc = await DocModel.findById(id, { docContent: 1 });
