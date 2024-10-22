@@ -1,6 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
+const cors = require("cors");
 
 dotenv.config({ path: "config.env" });
 const { dbConnection } = require("./config/database");
@@ -14,7 +15,12 @@ dbConnection();
 const app = express();
 
 //Middlewares
-app.use(express.json()); //To convert req body from encoded string to json
+app.use(
+  express.json(),
+  cors({
+    origin: process.env.CLIENT_DOMAIN,
+  })
+); //To convert req body from encoded string to json
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
   console.log(process.env.NODE_ENV);
